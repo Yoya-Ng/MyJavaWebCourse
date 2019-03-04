@@ -10,6 +10,7 @@ import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 public class GeroageServlet extends GenericServlet{
 
@@ -25,6 +26,8 @@ public class GeroageServlet extends GenericServlet{
         
         out.print("Lotto number = " + Lotto);
         
+        String uri = ((HttpServletRequest)req).getRequestURI(); //取得URI的位子
+        out.print(uri);
         
     }
     
