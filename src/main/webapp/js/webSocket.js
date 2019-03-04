@@ -1,5 +1,6 @@
 window.onload = function () {
     //獲取DOM元件
+    //
     var loginBtn = document.getElementById("loginBtn");
     var userNameInput = document.getElementById("userNameInput");
     var infoWindow = document.getElementById("infoWindow");
@@ -41,6 +42,8 @@ window.onload = function () {
 
     //設置WebSocket
     function setWebSocket() {
+//        webSocket = new WebSocket('ws://localhost:8084/JavaWebCourse/websocket');
+//        webSocket = new WebSocket('ws://192.168.2.19:8084/JavaWebCourse/websocket');//想想如何變成全域變數
         var url = 'ws://' + window.location.hostname + ':8084/JavaWebCourse/websocket';
         console.log(url);
         //開始WebSocket連線
