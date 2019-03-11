@@ -12,7 +12,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-public class GeroageServlet extends GenericServlet{
+public class GeorgeSevlet extends GenericServlet{
 
     @Override
     public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {

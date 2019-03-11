@@ -11,8 +11,8 @@
     </session-config>
     
     <servlet>
-        <servlet-name>GeroageServlet</servlet-name>
-        <servlet-class>servlet.GeroageServlet</servlet-class>
+        <servlet-name>GeorgeServlet</servlet-name>
+        <servlet-class>servlet.GeorgeServlet</servlet-class>
     </servlet>
     
     <!-- 路徑不建議用真實路徑，可進行修改 
@@ -22,14 +22,14 @@
         -->
     <!--  一般路徑 -->
     <servlet-mapping>
-        <servlet-name>GeroageServlet</servlet-name>
+        <servlet-name>GeorgeServlet</servlet-name>
         <url-pattern>/servlet/GeroageServlet</url-pattern>
     </servlet-mapping>
     
     <!--  客戶用路徑 -->
     <servlet-mapping>
-        <servlet-name>GeroageServlet</servlet-name>
-        <url-pattern>/supervisor/GeroageServlet</url-pattern>
+        <servlet-name>GeorgeServlet</servlet-name>
+        <url-pattern>/supervisor/GeorgeServlet</url-pattern>
     </servlet-mapping>
     
 </web-app>
