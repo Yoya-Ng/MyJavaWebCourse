@@ -28,6 +28,7 @@ public class UploadServlet extends HttpServlet{
         PrintWriter out = resp.getWriter();
         
         String title = "";
+        String fileName = "";
         for (Part part : req.getParts()) {
             switch (part.getName()) {
                 case "title":
@@ -42,22 +43,23 @@ public class UploadServlet extends HttpServlet{
                     title = Util.getValue(part.getInputStream());
                     break;
                 case "upload":
-                    out.println("get upload");
+                    //out.println("get upload");
                     //此方法名稱固定 不實用
                     //part.write("/Users/Tian/Desktop/Java Duan Teacher/Java 8 Web/MyJavaWebCourse/temp/我的照片.jsp");
                     
                     //會在 Mclaren [中間加入亂碼做為名稱]  .jsp
-                    String FileName = File.createTempFile("Mclaren", ".jsp").getName();
+                    fileName = File.createTempFile("Mclaren", ".jsp").getName();
                     //設定 location 就不需加路徑（會重複）
                     //part.write("/Users/Tian/Desktop/Java Duan Teacher/Java 8 Web/MyJavaWebCourse/temp/" + FileName);
-                    part.write(FileName);
+                    part.write(fileName);
                     
                     break;
             }
         }
         
-        out.append(title);
-        out.print("Upload OK");
+        String json = "{\"title\":\"%s\", \"fileName\":\"%s\"}";
+        json = String.format(json, title, fileName);
+        out.println(json);
     }
     
 }
