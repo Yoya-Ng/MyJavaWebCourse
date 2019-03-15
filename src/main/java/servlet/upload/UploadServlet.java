@@ -14,6 +14,7 @@ import utils.Util;
 
 @WebServlet("/servlet/upload/UploadServlet")
 @MultipartConfig(
+                location="/Users/Tian/Desktop/Java Duan Teacher/Java 8 Web/MyJavaWebCourse/temp/",
                  fileSizeThreshold=1024*1024*2, // 2MB
                  maxFileSize=1024*1024*10,      // 10MB
                  maxRequestSize=1024*1024*50)   // 50MB
@@ -30,11 +31,14 @@ public class UploadServlet extends HttpServlet{
         for (Part part : req.getParts()) {
             switch (part.getName()) {
                 case "title":
+                    //取的文字串流，轉亂成byte顯示出來
 //                    InputStream is = part.getInputStream();
 //                    byte[] b = new byte[1];
 //                    while(is.read(b) != -1) {
 //                        out.print((char)b[0]);
 //                    }
+                    
+                    //利用工具取得文字串流
                     title = Util.getValue(part.getInputStream());
                     break;
                 case "upload":
@@ -44,7 +48,9 @@ public class UploadServlet extends HttpServlet{
                     
                     //會在 Mclaren [中間加入亂碼做為名稱]  .jsp
                     String FileName = File.createTempFile("Mclaren", ".jsp").getName();
-                    part.write("/Users/Tian/Desktop/Java Duan Teacher/Java 8 Web/MyJavaWebCourse/temp/"+FileName);
+                    //設定 location 就不需加路徑（會重複）
+                    //part.write("/Users/Tian/Desktop/Java Duan Teacher/Java 8 Web/MyJavaWebCourse/temp/" + FileName);
+                    part.write(FileName);
                     
                     break;
             }
