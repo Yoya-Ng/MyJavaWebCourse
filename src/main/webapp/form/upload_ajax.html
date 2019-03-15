@@ -10,7 +10,7 @@
                 var content = this.responseText;
                 console.log(content);
                 var obj = JSON.parse(content);
-                document.getElementById('demo').innerHTML = obj.title + "<p>"
+                document.getElementById('demo').innerText = obj.title + "<p>"
                         + obj.fileName + "<p>"
                         + "<img src='data:image/png;base64," + obj.base64 + "'>";
             }
