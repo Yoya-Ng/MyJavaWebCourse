@@ -2,6 +2,7 @@ package servlet.upload;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -29,6 +30,7 @@ public class UploadServlet extends HttpServlet{
         
         String title = "";
         String fileName = "";
+        String base64 = "";
         for (Part part : req.getParts()) {
             switch (part.getName()) {
                 case "title":
@@ -53,12 +55,14 @@ public class UploadServlet extends HttpServlet{
                     //part.write("/Users/Tian/Desktop/Java Duan Teacher/Java 8 Web/MyJavaWebCourse/temp/" + FileName);
                     part.write(fileName);
                     
+                    InputStream is = part.getInputStream();
+                    base64 = Util.getBase64(is);
                     break;
             }
         }
         
-        String json = "{\"title\":\"%s\", \"fileName\":\"%s\"}";
-        json = String.format(json, title, fileName);
+        String json = "{\"title\":\"%s\", \"fileName\":\"%s\", \"base64\":\"%s\"}";
+        json = String.format(json, title, fileName, base64);
         out.println(json);
     }
     

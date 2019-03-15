@@ -6,9 +6,13 @@
         <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
         <title>File Upload(ajax)</title>
         <script>
-            function ajaxSuccess() {
+             function ajaxSuccess() {
                 var content = this.responseText;
                 console.log(content);
+                var obj = JSON.parse(content);
+                document.getElementById('demo').innerHTML = obj.title + "<p>"
+                        + obj.fileName + "<p>"
+                        + "<img src='data:image/png;base64," + obj.base64 + "'>";
             }
             function ajaxSubmit(oFormElement) {
                 if (!oFormElement.action) {
@@ -17,7 +21,7 @@
                 var xhttp = new XMLHttpRequest();
                 xhttp.onload = ajaxSuccess;
                 xhttp.open("post", oFormElement.action);
-                //將 FORM 表單轉換成  FormDataFormData
+                  //將 FORM 表單轉換成  FormDataFormData
                 xhttp.send(new FormData(oFormElement));
             }
         </script>
@@ -37,6 +41,6 @@
                 <input type="submit" value="Submit" />
             </fieldset>
         </form>
-
+<div id="demo"></div>
     </body>
 </html>
