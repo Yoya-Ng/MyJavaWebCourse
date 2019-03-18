@@ -10,7 +10,8 @@
                 var content = this.responseText;
                 console.log(content);
                 var obj = JSON.parse(content);
-                document.getElementById('demo').innerText = obj.title + "<p>"
+                //document.getElementById('demo').innerText = obj.title + "<p>"
+                 document.getElementById('demo').innerHTML = obj.title + "<p>"
                         + obj.ofileName + "<p>"
                         + obj.fileName + "<p>"
                         + obj.bytes + "<p>"
@@ -40,6 +41,9 @@
                 <legend>Upload File(ajax)</legend>
                 標題 (title) : <input type="text" name="title" /><br>
                 檔案上傳 (upload): <input type="file" multiple name="upload"><br>
+                驗證碼 : <input type="text" name="myAuthCode" />
+                <img src="/MyJavaWebCourse/servlet/AuthCodeServlet">
+                <br>
                 <input type="submit" value="Submit" />
             </fieldset>
         </form>

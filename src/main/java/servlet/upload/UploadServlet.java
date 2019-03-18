@@ -15,11 +15,11 @@ import utils.Util;
 
 @WebServlet("/servlet/upload/UploadServlet")
 @MultipartConfig(
-                location="/Users/Tian/Desktop/Java Duan Teacher/Java 8 Web/MyJavaWebCourse/temp/",
-                 fileSizeThreshold=1024*1024*2, // 2MB
-                 maxFileSize=1024*1024*10,      // 10MB
-                 maxRequestSize=1024*1024*50)   // 50MB
-public class UploadServlet extends HttpServlet{
+        location = "/Users/Tian/Desktop/Java Duan Teacher/Java 8 Web/MyJavaWebCourse/temp/",
+        fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+        maxFileSize = 1024 * 1024 * 10, // 10MB
+        maxRequestSize = 1024 * 1024 * 50)   // 50MB
+public class UploadServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,12 +27,14 @@ public class UploadServlet extends HttpServlet{
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/plain;chartset=UTF-8");
         PrintWriter out = resp.getWriter();
-        
+
         String title = "";
         String ofileName = "";
         String fileName = "";
         int bytes = 0;
         String base64 = "";
+        boolean authCodeOK = false;
+
         for (Part part : req.getParts()) {
             switch (part.getName()) {
                 case "title":
@@ -42,15 +44,20 @@ public class UploadServlet extends HttpServlet{
 //                    while(is.read(b) != -1) {
 //                        out.print((char)b[0]);
 //                    }
-                    
+
                     //利用工具取得文字串流
                     title = Util.getValue(part.getInputStream());
+                    break;
+                case "myAuthCode":
+                    String myAuthCode = Util.getValue(part.getInputStream());
+                    String authCode = req.getSession().getAttribute("authCode").toString();
+                    authCodeOK = myAuthCode.equalsIgnoreCase(authCode);
                     break;
                 case "upload":
                     //out.println("get upload");
                     //此方法名稱固定 不實用
                     //part.write("/Users/Tian/Desktop/Java Duan Teacher/Java 8 Web/MyJavaWebCourse/temp/我的照片.jsp");
-                    
+
                     //會在 Mclaren [中間加入亂碼做為名稱]  .jsp
                     fileName = File.createTempFile("Mclaren", ".jsp").getName();
                     //設定 location 就不需加路徑（會重複）
@@ -63,10 +70,13 @@ public class UploadServlet extends HttpServlet{
                     break;
             }
         }
-        
+        if (!authCodeOK) {
+            base64 = "";
+        }
+
         String json = "{\"title\":\"%s\", \"ofileName\":\"%s\", \"fileName\":\"%s\", \"bytes\":\"%d\", \"base64\":\"%s\"}";
         json = String.format(json, title, ofileName, fileName, bytes, base64);
         out.println(json);
     }
-    
+
 }
