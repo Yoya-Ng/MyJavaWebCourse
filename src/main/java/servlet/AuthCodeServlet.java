@@ -22,6 +22,9 @@ public class AuthCodeServlet extends HttpServlet {
         String authCode = String.format("%04d", new Random().nextInt(1000));
         System.out.println("authCode = " + authCode);
         
+        //將驗證碼保留在session中，便於以後驗證
+        req.getSession().setAttribute("authCode", authCode);  
+        
         try {
             //發送/寫入圖片資料  
             ImageIO.write(getAuthImg(authCode), "JPEG", resp.getOutputStream());
@@ -46,17 +49,16 @@ public class AuthCodeServlet extends HttpServlet {
         // 繪字串
         g.drawString(authCode, 10, 23); // code, x, y
         
-        //干擾線條
+        // 干擾線條
         Random random = new Random();
-        g.setColor(Color.blue);
-        for(int i = 0; i < 10 ; i++){
+        g.setColor(Color.BLUE);
+        for (int i = 0; i < 10; i++) {
             int x = random.nextInt(80);
             int y = random.nextInt(30);
             int x2 = random.nextInt(80);
             int y2 = random.nextInt(30);
             g.drawLine(x, y, x2, y2);
         }
-        
         return img;
     }
     
