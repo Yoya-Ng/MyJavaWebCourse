@@ -24,7 +24,7 @@ public class GeorgeSevlet extends GenericServlet{
             Lotto.add(number);
         }
         
-        out.print("Lotto number = " + Lotto);
+        out.print("Lotto number = " + Lotto + "\n");
         
         String uri = ((HttpServletRequest)req).getRequestURI(); //取得URI的位子
         out.print(uri);
