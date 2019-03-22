@@ -1,19 +1,28 @@
 package mvc.model;
 
 public class BMIModel {
-
-    private int h;
-    private int w;
+    private double height;
+    private double weight;
     private double bmi;
+    
+    public BMIModel(double height, double weight) {
+        this.height = height;
+        this.weight = weight;
+        bmi = weight/Math.pow(height/100, 2);
+    }
 
-    public BMIModel(int height, int whight) {
-        this.h = height;
-        this.w = whight;
+    public double getHeight() {
+        return height;
+    }
+
+    public double getWeight() {
+        return weight;
     }
 
     public double getBmi() {
-        bmi = w / Math.pow(h/100, 2);
         return bmi;
     }
-
+    
+    
+    
 }

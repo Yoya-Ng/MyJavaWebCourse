@@ -9,11 +9,13 @@
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function () {
                     if (this.readyState == 4 && this.status == 200) {
-                        console.log(this.responseText);
-                        document.getElementById("demo").innerHTML = this.responseText;
+                        content = this.responseText.trim();
+                        console.log(content);
+                        var obj = JSON.parse(content);
+                        document.getElementById("bmi").value = obj.bmi;
                     }
                 };
-                xhttp.open("POST", "/MyJavaWebCourse/mvc/controller/BMIController", true);
+                xhttp.open("POST", "/MyJavaWebCourse/mvc/controller/BMIController_gson", true);
                 xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 var h = document.getElementById("height").value;
                 var w = document.getElementById("weight").value;
@@ -24,11 +26,12 @@
         </script>
     </head>
     <body style="padding: 10px">
-        <form class="pure-form" method="post" action="/MyJavaWebCourse/mvc/controller/BMIController">
+        <form class="pure-form" method="post" action="/MyJavaWebCourse/mvc/controller/BMIController_gson">
             <fieldset>
                 <legend>BMI MVC</legend>
                 <input type="number" placeholder="請輸入身高" name="height" id="height"><p>
                 <input type="number" placeholder="請輸入體重" name="weight" id="weight"><p>
+                <input type="number" name="bmi" id="bmi" readonly><p>
                 <button type="submit" class="pure-button pure-button-primary">計算</button>
                 <button type="button" class="pure-button pure-button-primary" onclick="doPost()">Ajax 計算</button>
             </fieldset>
