@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mvc.model.HelloModel;
 
-@WebServlet(name = "HelloController")
+@WebServlet("/mvc/HelloController")
 public class HelloController extends HttpServlet{
 
     @Override
