@@ -100,7 +100,16 @@ public class UserRest extends HttpServlet {
 
     protected void doDelete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doHandler(request, response);
+        response.setContentType("text/plain;charset=utf-8"); 
+        PrintWriter out = response.getWriter(); 
+        try { 
+            RestRequest restRequest = new RestRequest(request.getPathInfo()); 
+            dao.delete(restRequest.getId()); 
+            out.print("Delete OK"); 
+        } catch (ServletException e) { 
+            e.printStackTrace(); 
+            out.println(e.toString()); 
+        } 
     }
 
     // implement remaining HTTP actions here 
