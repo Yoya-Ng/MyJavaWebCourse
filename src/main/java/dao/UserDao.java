@@ -57,7 +57,7 @@ public class UserDao {
         dao.update(4, "VB.Net");
         System.out.println(dao.queryAll());
         dao.delete(4);
-        System.out.println(dao.queryAll());
+        System.out.println(dao.queryAll()); 
         
         
     }
