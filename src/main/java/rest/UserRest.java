@@ -1,7 +1,7 @@
 package rest; 
  
-import com.google.gson.Gson;
-import dao.UserDao;
+import com.google.gson.Gson; 
+import dao.UserDao; 
 import java.io.IOException; 
 import java.io.PrintWriter; 
  
@@ -16,12 +16,13 @@ import javax.servlet.http.HttpServletResponse;
  
 @WebServlet("/rest/*") 
 public class UserRest extends HttpServlet { 
-    UserDao dao;
-    
-    public void init() throws ServletException{
-        dao = new UserDao();
-    }
-    
+    UserDao dao; 
+     
+    @Override 
+    public void init() throws ServletException { 
+        dao = new UserDao(); 
+    } 
+     
     protected void doHandler(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException { 
         PrintWriter out = response.getWriter(); 
@@ -41,26 +42,39 @@ public class UserRest extends HttpServlet {
  
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException { 
-        response.setContentType("text/plain;charset=utf-8");
-        PrintWriter out = response.getWriter();
+        response.setContentType("text/plain;charset=utf-8"); 
+        PrintWriter out = response.getWriter(); 
         try { 
             RestRequest restRequest = new RestRequest(request.getPathInfo()); 
-            int id = restRequest.getId();
-            
-            if(id == -1){
-                out.print(new Gson().toJson(dao.queryAll()));
-            }else{
-                out.print(new Gson().toJson(dao.get(id)));
-            }
+            int id = restRequest.getId(); 
+             
+            if(id == -1) { 
+                out.print(new Gson().toJson(dao.queryAll())); 
+            } else { 
+                out.print(new Gson().toJson(dao.get(id))); 
+            } 
+             
         } catch (ServletException e) { 
             e.printStackTrace(); 
             out.println(e.toString()); 
         } 
+         
     } 
  
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException { 
-        doHandler(request, response); 
+        response.setContentType("text/plain;charset=utf-8"); 
+        PrintWriter out = response.getWriter(); 
+        try { 
+            String username = request.getParameter("username"); 
+            RestRequest restRequest = new RestRequest(request.getPathInfo()); 
+            dao.create(username); 
+            out.print("Create OK"); 
+        } catch (ServletException e) { 
+            e.printStackTrace(); 
+            out.println(e.toString()); 
+        } 
+         
     } 
  
     protected void doPut(HttpServletRequest request, HttpServletResponse response) 
@@ -81,7 +95,7 @@ public class UserRest extends HttpServlet {
         private Pattern regExAllPattern = Pattern.compile("/users"); 
         private Pattern regExIdPattern = Pattern.compile("/user/([0-9]*)"); 
  
-        private int id; 
+        private int id = -1; 
  
         public RestRequest(String pathInfo) throws ServletException { 
             // regex parse pathInfo 
@@ -90,7 +104,10 @@ public class UserRest extends HttpServlet {
             // Check for ID case first, since the All pattern would also match 
             matcher = regExIdPattern.matcher(pathInfo); 
             if (matcher.find()) { 
-                id = Integer.parseInt(matcher.group(1)); 
+                try { 
+                    id = Integer.parseInt(matcher.group(1)); 
+                } catch (Exception e) { 
+                } 
                 return; 
             } 
  

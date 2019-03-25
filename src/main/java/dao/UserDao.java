@@ -32,7 +32,7 @@ public class UserDao {
     }
     
     // 新增
-    public void cteate(String name){
+    public void create(String name){
         users.add(name);
     }
     
@@ -52,7 +52,7 @@ public class UserDao {
         System.out.println(dao.queryAll());
         System.out.println(dao.get(2));
         System.out.println(dao.query("java"));
-        dao.cteate("C#");
+        dao.create("C#");
         System.out.println(dao.queryAll());
         dao.update(4, "VB.Net");
         System.out.println(dao.queryAll());
