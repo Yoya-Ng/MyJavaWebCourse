@@ -3,6 +3,7 @@ package dao;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserDao {
 
@@ -25,10 +26,39 @@ public class UserDao {
         return users.get(id);
     }
     
+    // 關鍵字查詢
+    public List<String> query(String keyword){
+        return users.stream().filter(name -> name.contains(keyword)).collect(Collectors.toList());
+    }
+    
+    // 新增
+    public void cteate(String name){
+        users.add(name);
+    }
+    
+    // 新增
+    public void update(int id, String newName){
+        users.set(id ,newName);
+    }
+    
+    // 刪除
+    public void delete(int id){
+        users.remove(id);
+    }
+    
     // 測試用(模擬 RestUser Servlet 的使用)
     public static void main(String[] args) {
         UserDao dao = new UserDao();
         System.out.println(dao.queryAll());
         System.out.println(dao.get(2));
+        System.out.println(dao.query("java"));
+        dao.cteate("C#");
+        System.out.println(dao.queryAll());
+        dao.update(4, "VB.Net");
+        System.out.println(dao.queryAll());
+        dao.delete(4);
+        System.out.println(dao.queryAll());
+        
+        
     }
 }
