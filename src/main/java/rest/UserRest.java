@@ -1,5 +1,7 @@
 package rest; 
  
+import com.google.gson.Gson;
+import dao.UserDao;
 import java.io.IOException; 
 import java.io.PrintWriter; 
  
@@ -14,7 +16,12 @@ import javax.servlet.http.HttpServletResponse;
  
 @WebServlet("/rest/*") 
 public class UserRest extends HttpServlet { 
- 
+    UserDao dao;
+    
+    public void init() throws ServletException{
+        dao = new UserDao();
+    }
+    
     protected void doHandler(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException { 
         PrintWriter out = response.getWriter(); 
@@ -34,7 +41,21 @@ public class UserRest extends HttpServlet {
  
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException { 
-        doHandler(request, response); 
+        response.setContentType("text/plain;charset=utf-8");
+        PrintWriter out = response.getWriter();
+        try { 
+            RestRequest restRequest = new RestRequest(request.getPathInfo()); 
+            int id = restRequest.getId();
+            
+            if(id == -1){
+                out.print(new Gson().toJson(dao.queryAll()));
+            }else{
+                out.print(new Gson().toJson(dao.get(id)));
+            }
+        } catch (ServletException e) { 
+            e.printStackTrace(); 
+            out.println(e.toString()); 
+        } 
     } 
  
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
