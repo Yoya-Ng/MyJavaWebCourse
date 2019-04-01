@@ -3,7 +3,7 @@
     String[] food_titles = (String[])session.getAttribute("food_titles");
     String[] food_prices = (String[])session.getAttribute("food_prices"); 
     boolean firsttime = Boolean.parseBoolean(session.getAttribute("firsttime").toString()); 
-    
+    String sessionId = session.getId();
 %>
 <html>
     <head>
@@ -16,6 +16,7 @@
         <form class="pure-form">
             <fieldset>
                 <legend>Fastfood ShoppingCar (<%=firsttime %>)</legend>
+                <font size=1>session id = <%=sessionId %></font><p>
                 <table class="pure-table pure-table-bordered">
                     <thead>
                         <tr>
