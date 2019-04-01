@@ -46,6 +46,7 @@ public class UserRS {
         return "Create OK!";
     }
 
+    // 方法一
     @PUT
     @Path("/{id}")
     public String update(@PathParam("id") int id, @FormParam("newName") String newName) {
@@ -53,6 +54,7 @@ public class UserRS {
         return "Update OK"; 
     } 
     
+    // 方法二
 //    @PUT
 //    @Path("/{id}")
 //    public String update(@PathParam("id") int id, String args) {
