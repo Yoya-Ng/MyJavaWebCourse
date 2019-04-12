@@ -15,7 +15,7 @@ public class User implements Serializable{
     //@Column       可不加name 如果跟db 名稱一樣
     @Column(name = "name")
     private String name;
-    @Column(name = "ags")
+    @Column(name = "age")
     private int age;
 
     public User() {
