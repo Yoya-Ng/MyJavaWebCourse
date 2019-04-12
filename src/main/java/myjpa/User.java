@@ -9,7 +9,8 @@ import javax.persistence.*;
 @Table(name = "T_USER")
 public class User implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) //JPA自訂產生id
+//    @GeneratedValue(strategy = GenerationType.AUTO) //JPA自訂產生id，會多出一些空格 
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //JPA自訂產生id
     private Long id;
     //@Column       可不加name 如果跟db 名稱一樣
     @Column(name = "name")
