@@ -17,7 +17,9 @@ public class JPA_Console {
 //      查詢多筆 
 //        System.out.println(queryUsers());
 //      查詢多筆 
-        System.out.println(query());
+//        System.out.println(query());
+//      修改資料
+        update();
         
         JPAUtil.shutdown(); 
     } 
@@ -61,5 +63,22 @@ public class JPA_Console {
         List list = query.getResultList();
         em.close();
         return list;
+    }
+    
+    public static void update(){
+        EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
+        User user = em.find(User.class, 1L);
+        System.out.println(user);
+        if (user !=null) {
+            user.setName("Tom");
+            user.setAge(10);
+            EntityTransaction etx = em.getTransaction();
+            etx.begin();
+            em.persist(user); // em.merge(user); 看Entity 的狀態為何
+            etx.commit();
+            System.out.println("2.修改成功");
+            System.out.println(user);
+        }
+        em.close();
     }
 } 
