@@ -28,11 +28,37 @@ public class JAP_UserRS {
     }
 
     @POST
-    public String create(@FormParam("name") String name,@FormParam("age") int age) {
+    public String create(@FormParam("name") String name, @FormParam("age") int age) {
         User user = new User();
         user.setName(name);
         user.setAge(age);
         controller.save(user);
         return "Create OK!";
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public String delete(@PathParam("id") Long id) {
+        User user = controller.findById(id);
+        if (user != null) {
+            controller.delete(user);
+            return "Delete OK!";
+        } else {
+            return "No data";
+        }
+    }
+
+    @PUT
+    @Path("/{id}")
+    public String update(@PathParam("id") Long id, @FormParam("name") String name, @FormParam("age") int age) {
+        User user = controller.findById(id);
+        if (user != null) {
+            user.setName(name);
+            user.setAge(age);
+            controller.update(user);
+            return "Update OK";
+        } else {
+            return "No data";
+        }
     }
 }
