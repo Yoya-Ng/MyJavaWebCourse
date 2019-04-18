@@ -3,18 +3,19 @@ package myjpa;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
 //@Entity(name = "User") name可自行修改，預設會跟Class名稱一樣
 @Entity
 @Table(name = "T_USER")
-public class User implements Serializable{
+public class User implements Serializable {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) //JPA自訂產生id
+//    @GeneratedValue(strategy = GenerationType.AUTO) //JPA自訂產生id，會多出一些空格 
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //JPA自訂產生id
     private Long id;
     //@Column       可不加name 如果跟db 名稱一樣
     @Column(name = "name")
     private String name;
-    @Column(name = "ags")
+    @Column(name = "age")
     private int age;
 
     public User() {
@@ -38,7 +39,8 @@ public class User implements Serializable{
     }
 
     public void setName(String name) {
-        this.name = name;
+        if(name != null)
+            this.name = name;
     }
 
     public int getAge() {
@@ -46,13 +48,13 @@ public class User implements Serializable{
     }
 
     public void setAge(int age) {
-        this.age = age;
+        if (age >= 0) 
+            this.age = age;
     }
 
     @Override
     public String toString() {
         return "User{" + "id=" + id + ", name=" + name + ", age=" + age + '}';
     }
-    
-    
+
 }
