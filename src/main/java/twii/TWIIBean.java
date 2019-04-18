@@ -27,7 +27,7 @@ public class TWIIBean {
     }
 
     public static void main(String[] args) throws IOException {
-        List<TWII> list = toTWIIList(csv());
+        List<TWII> list = toTWIIList_java8(csv());
         System.out.println(list);
     }
 
@@ -57,6 +57,23 @@ public class TWIIBean {
             twii.setPb(Double.parseDouble(arr[5]));
             twiiList.add(twii);
         }
+        return twiiList;
+    }
+
+    private static List<TWII> toTWIIList_java8(List list) {
+        List twiiList = new ArrayList<>();
+        list.stream().map((data) -> {
+            String[] arr = ((String[]) data);
+            TWII twii = new TWII();
+            twii.setStockNo(arr[0]);
+            twii.setStockName(arr[1]);
+            twii.setYield(Double.parseDouble(arr[2]));
+            twii.setPe(Double.parseDouble(arr[4]));
+            twii.setPb(Double.parseDouble(arr[5]));
+            return twii;
+        }).forEachOrdered((twii) -> {
+            twiiList.add(twii);
+        });
         return twiiList;
     }
 
