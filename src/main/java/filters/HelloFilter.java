@@ -1,5 +1,6 @@
 package filters;
 
+import java.io.File;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -20,11 +21,9 @@ public class HelloFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         System.out.println("doFilter() HelloFilter");
-        if (request.getParameter("pass") == null) {
-            response.getWriter().print("HelloFilter");
-        } else {
-            chain.doFilter(request, response);
-        }
+        System.out.println("A");
+        chain.doFilter(request, response);
+        System.out.println("C");
     }
 
     @Override
