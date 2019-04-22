@@ -24,7 +24,7 @@ public class PerformanceFilter implements Filter {
         chain.doFilter(request, response);
         //after 之後會執行的
         long end = System.currentTimeMillis();
-        System.out.println(((HttpServletRequest) request).getRequestURI() + " : " + (end - begin) + " ms");
+//        System.out.println(((HttpServletRequest) request).getRequestURI() + " : " + (end - begin) + " ms");
     }
 
     @Override
