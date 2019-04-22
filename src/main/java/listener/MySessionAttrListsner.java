@@ -10,6 +10,9 @@ public class MySessionAttrListsner implements HttpSessionAttributeListener {
     @Override
     public void attributeAdded(HttpSessionBindingEvent event) {
         System.out.println("監聽 - " + event.getName() + ":" + event.getValue() + " , from id = " + event.getSession().getId());
+        if (event.getValue().equals("hacker")) {
+            event.getSession().invalidate();
+        }
     }
 
     @Override
