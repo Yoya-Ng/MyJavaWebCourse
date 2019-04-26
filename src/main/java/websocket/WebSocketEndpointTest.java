@@ -18,6 +18,12 @@ public class WebSocketEndpointTest {
     @OnMessage
     public void onMessage(String message, Session session) throws IOException,
             InterruptedException, EncodeException {
+        System.out.println("message = " + message);
+        for (Session s : sessions) {    //對每個連接的Client傳送訊息 
+            if (s.isOpen()) {
+                s.getAsyncRemote().sendText(message);
+            }
+        }
     }
 
     @OnOpen
