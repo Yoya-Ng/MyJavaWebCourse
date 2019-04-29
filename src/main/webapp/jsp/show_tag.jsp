@@ -8,8 +8,6 @@
     </head>
     <body>
         <h1><my:report y="2018" /></h1>
-        <h1><my:report y="2018" /></h1>
-        <h1><my:report y="2018" /></h1>
-        <h1><my:report y="2018" /></h1>
+        <h1><my:bmi h="170" w="60" /></h1>
     </body>
 </html>
