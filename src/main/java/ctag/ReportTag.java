@@ -38,7 +38,7 @@ public class ReportTag implements Tag {
     public int doStartTag() throws JspException {
         try {
             JspWriter out = pageContext.getOut();
-            out.print(getY() + " Rport ");
+            out.print(getY() + " Report ");
         } catch (Exception e) {
         }
         return Tag.EVAL_PAGE;
